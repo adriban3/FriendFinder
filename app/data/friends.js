@@ -17,3 +17,5 @@ var friendsArr = [
         scores: [2,2,5,1,5,4,5,3,5,1]
     }//filled in dumby data for testing
 ]
+
+module.exports = friendsArr;
