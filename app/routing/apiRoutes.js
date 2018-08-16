@@ -1,48 +1,34 @@
-var friends = require("../data/friends");
 var path = require("path");
+var friends = require("../data/friends");
 
 module.exports = function(app) {
 
     app.get("/api/friends", function(req, res) {
-        res.json(friends);  //come back to this
-    });
+        res.json(friends)
+    })
 
     app.post("/api/friends", function(req, res) {
-
-        var resp = req.body;
-
-        var userScore = resp.scores;
-
-        var matchCheck;
-
-        var valMC;
-
-        var diff = [];
+        var newFriend = req.body;
+        var userScore = newFriend.scores;
+        var diff = 0;
+        var diffSum = 0;
+        var diffSumArr = [];
 
         for (var i = 0; i < friends.length; i++) {
-
-            var sum = 0;
-            matchCheck = friends[i].scores
-
-            for (var j = 0; i < userScore.length; i++) {
-
-                valMC = matchCheck[j];
-                sum += Math.abs(valMC - userScore[j]);
-
+            for (var i = 0; i < userScore.length; i++) {
+                diff = friends[i].scores[j] - userScore[j];
+                diffSum += Math.abs(diff);
             }
-
-            diff.push(sum);
-
+            diffSumArr.push(diffsum);
+            diffSum = 0;
         }
 
-        var matchInd = Math.max(diff);
-        var match = friends[matchInd];
-
-        friends.push(resp);
-
-        res.json({matchName: match.name, matchImg: match.photo});
-        //come back here too, push to friendsArr then route user to results page?
-        //no resuls page, just show user json
-        //also determine match here and show match json
+        newFriendSum = Math.max(diffSumArr);
+        newFriendInd = diffSumArr.findIndex(newFriendSum);
+        newFriendObj = friends[newFriendInd];
+        matchName = newFriendObj.name;
+        matchImg = newFriendObj.photo;
+        friends.push(newFriend);
+        res.json({matchName: matchName, matchImg: matchImg})
     })
 }
