@@ -174,7 +174,7 @@
                         parseInt($("#q9").val().trim()),
                         parseInt($("#q10").val().trim())
                 ]};
-
+                
                 $.post("/api/friends", newFriend).done(function(data) {
                     $("#resultText").html(data.matchName);
                     $("#resultImg").attr("src", data.matchImg);
