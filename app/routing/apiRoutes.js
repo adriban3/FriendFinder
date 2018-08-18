@@ -15,16 +15,16 @@ module.exports = function(app) {
         var diffSumArr = [];
 
         for (var i = 0; i < friends.length; i++) {
-            for (var i = 0; i < userScore.length; i++) {
+            for (var j = 0; j < userScore.length; j++) {
                 diff = friends[i].scores[j] - userScore[j];
                 diffSum += Math.abs(diff);
             }
-            diffSumArr.push(diffsum);
+            diffSumArr.push(diffSum);
             diffSum = 0;
         }
-
-        newFriendSum = Math.max(diffSumArr);
-        newFriendInd = diffSumArr.findIndex(newFriendSum);
+        
+        newFriendSum = Math.min(...diffSumArr);
+        newFriendInd = diffSumArr.indexOf(newFriendSum);
         newFriendObj = friends[newFriendInd];
         matchName = newFriendObj.name;
         matchImg = newFriendObj.photo;
